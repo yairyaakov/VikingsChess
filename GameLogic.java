@@ -8,14 +8,15 @@ public class GameLogic implements PlayableLogic {
     private final ConcretePlayer defender = new ConcretePlayer(true);
     private final ConcretePlayer attacker = new ConcretePlayer(false);
     protected final ConcretePiece[][] piecePosition = new ConcretePiece[BOARD_SIZE][BOARD_SIZE];
-    Stack<ConcretePiece> killedPiece = new Stack<>();
-    Stack<Position> lastP = new Stack<>();
-    Stack<Position> newP = new Stack<>();
+    private Stack<ConcretePiece> killedPiece = new Stack<>();
+    private Stack<Position> lastP = new Stack<>();
+    private Stack<Position> newP = new Stack<>();
     final Position FIRST_KING_POSITION= new Position(5,5);
     private Position kingPosition = new Position(5,5);
     private ArrayList<ConcretePiece> printPiece = new ArrayList<ConcretePiece>();
     private int[][] howManySteps = new int[BOARD_SIZE][BOARD_SIZE];
     private ArrayList<Position> transfer = new ArrayList<Position>();
+    private ConcretePiece killerPiece;
 
 
     //constructor
@@ -158,10 +159,9 @@ public class GameLogic implements PlayableLogic {
                         ((Pawn) TempPiece).reduce_Kill();
                     }
                     piecePosition[newP.peek().getX()][newP.peek().getY()] = killedPiece.pop(); //put the killed piece in his last position "Relive it"
-
                     newP.pop();
                 }
-                if (!lastP.isEmpty()  && !newP.isEmpty()){
+                if (!lastP.isEmpty()  && !newP.isEmpty() && !newP.peek().equals(lastP.peek())){
                     //back to the last position
                     piecePosition[newP.peek().getX()][newP.peek().getY()].remuvelLoc("("+newP.peek().getX()+","+newP.peek().getY()+")");
                     piecePosition[newP.peek().getX()][newP.peek().getY()].removeLastLoc();
@@ -180,7 +180,6 @@ public class GameLogic implements PlayableLogic {
                     newP.pop();
                     m_isFirstPlayerTurn = !m_isFirstPlayerTurn; //change the turn to the other player
                 }
-
             }
     }
 
@@ -448,6 +447,9 @@ public class GameLogic implements PlayableLogic {
     }
 
     private void killPawn(int x, int y) {
+        killedPiece.add(piecePosition[x][y]);
+        killedPiece.add(killerPiece);
+        newP.add(new Position(x,y));
         piecePosition[x][y] = null;
     }
 
@@ -465,6 +467,7 @@ public class GameLogic implements PlayableLogic {
             checkForUniquePosition(destination);
         }
 
+        killerPiece = piecePosition[destination.getX()][destination.getY()];
         int x = destination.getX();
         int y = destination.getY();
         boolean isTheAttacker = piecePosition[x][y].getOwner().isPlayerOne();
@@ -515,6 +518,7 @@ public class GameLogic implements PlayableLogic {
      */
 
     private void checkForUniquePosition(Position dest) {
+        killerPiece = piecePosition[dest.getX()][dest.getY()];
         if (dest.getX() == 0 && dest.getY() == 2) {
             if (piecePosition[0][1] != null && piecePosition[0][1].getOwner() != piecePosition[0][2].getOwner() && !isKingPosition(0,1)) {
                 killPawn(0, 1);
