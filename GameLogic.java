@@ -195,6 +195,7 @@ public class GameLogic implements PlayableLogic {
 
     //This function help us build the starting constructor of the game
     private ConcretePiece[][] initGame (ConcretePiece[][] arr) {
+        transfer = new ArrayList<Position>();
         printPiece = new ArrayList<ConcretePiece>();
         howManySteps = new int[BOARD_SIZE][BOARD_SIZE];
         killedPiece = new Stack<>();
@@ -204,14 +205,15 @@ public class GameLogic implements PlayableLogic {
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 howManySteps[i][j]=0;
+                arr[i][j] = null;
+                if (arr[i][j] != null){
+                    arr[i][j].restart_Positions();
+                    arr[i][j].restart_Squares();
+                }
             }
         }
 
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr.length; j++) {
-                arr[i][j] = null;
-            }
-        }
+
         arr[5][5] = new King(defender,"K7");
         printPiece.add(arr[5][5]);
         arr[5][5].setPositions("(5,5)");
@@ -221,181 +223,217 @@ public class GameLogic implements PlayableLogic {
         printPiece.add(arr[5][3]);
         arr[5][3].setPositions("(5,3)");
         howManySteps[5][3]=1;
+        ((Pawn)arr[5][3]).restart_Kill();
 
         arr[5][4] = new Pawn(defender,"D3");
         printPiece.add(arr[5][4]);
         arr[5][4].setPositions("(5,4)");
         howManySteps[5][4]=1;
+        ((Pawn) arr[5][4]).restart_Kill();
 
         arr[5][6] = new Pawn(defender, "D11");
         printPiece.add(arr[5][6]);
         arr[5][6].setPositions("(5,6)");
         howManySteps[5][6]=1;
+        ((Pawn)arr[5][6]).restart_Kill();
 
         arr[5][7] = new Pawn(defender,"D13");
         printPiece.add(arr[5][7]);
         arr[5][7].setPositions("(5,7)");
         howManySteps[5][7]=1;
+        ((Pawn)arr[5][7]).restart_Kill();
 
         arr[3][5] = new Pawn(defender,"D5" );
         printPiece.add(arr[3][5]);
         arr[3][5].setPositions("(3,5)");
         howManySteps[3][5]=1;
+        ((Pawn)arr[3][5]).restart_Kill();
 
         arr[4][5] = new Pawn(defender,"D6" );
         printPiece.add(arr[4][5]);
         arr[4][5].setPositions("(4,5)");
         howManySteps[4][5]=1;
+        ((Pawn)arr[4][5]).restart_Kill();
 
         arr[6][5] = new Pawn(defender,"D8" );
         printPiece.add(arr[6][5]);
         arr[6][5].setPositions("(6,5)");
         howManySteps[6][5]=1;
+        ((Pawn)arr[6][5]).restart_Kill();
 
         arr[7][5] = new Pawn(defender,"D9" );
         printPiece.add(arr[7][5]);
         arr[7][5].setPositions("(7,5)");
         howManySteps[7][5]=1;
+        ((Pawn)arr[7][5]).restart_Kill();
 
         arr[4][4] = new Pawn(defender,"D2" );
         printPiece.add(arr[4][4]);
         arr[4][4].setPositions("(4,4)");
         howManySteps[4][4]=1;
+        ((Pawn)arr[4][4]).restart_Kill();
 
         arr[6][4] = new Pawn(defender,"D4" );
         printPiece.add(arr[6][4]);
         arr[6][4].setPositions("(6,4)");
         howManySteps[6][4]=1;
+        ((Pawn)arr[6][4]).restart_Kill();
 
         arr[6][6] = new Pawn(defender,"D12" );
         printPiece.add(arr[6][6]);
         arr[6][6].setPositions("(6,6)");
         howManySteps[6][6]=1;
+        ((Pawn)arr[6][6]).restart_Kill();
 
         arr[4][6] = new Pawn(defender,"D10" );
         printPiece.add(arr[4][6]);
         arr[4][6].setPositions("(4,6)");
         howManySteps[4][6]=1;
+        ((Pawn)arr[4][6]).restart_Kill();
 
         arr[0][3] = new Pawn(attacker,"A7");
         printPiece.add(arr[0][3]);
         arr[0][3].setPositions("(0,3)");
         howManySteps[0][3]=1;
+        ((Pawn)arr[0][3]).restart_Kill();
 
         arr[0][4] = new Pawn(attacker,"A9" );
         printPiece.add(arr[0][4]);
         arr[0][4].setPositions("(0,4)");
         howManySteps[0][4]=1;
+        ((Pawn)arr[0][4]).restart_Kill();
 
         arr[0][5] = new Pawn(attacker,"A11" );
         printPiece.add(arr[0][5]);
         arr[0][5].setPositions("(0,5)");
         howManySteps[0][5]=1;
+        ((Pawn)arr[0][5]).restart_Kill();
 
         arr[0][6] = new Pawn(attacker,"A15" );
         printPiece.add(arr[0][6]);
         arr[0][6].setPositions("(0,6)");
         howManySteps[0][6]=1;
+        ((Pawn)arr[0][6]).restart_Kill();
 
         arr[0][7] = new Pawn(attacker,"A17" );
         printPiece.add(arr[0][7]);
         arr[0][7].setPositions("(0,7)");
         howManySteps[0][7]=1;
+        ((Pawn)arr[0][7]).restart_Kill();
 
         arr[1][5] = new Pawn(attacker,"A12" );
         printPiece.add(arr[1][5]);
         arr[1][5].setPositions("(1,5)");
         howManySteps[1][5]=1;
+        ((Pawn)arr[1][5]).restart_Kill();
 
         arr[10][3] = new Pawn(attacker,"A8" );
         printPiece.add(arr[10][3]);
         arr[10][3].setPositions("(10,3)");
         howManySteps[10][3]=1;
+        ((Pawn)arr[10][3]).restart_Kill();
 
         arr[10][4] = new Pawn(attacker,"A10" );
         printPiece.add(arr[10][4]);
         arr[10][4].setPositions("(10,4)");
         howManySteps[10][4]=1;
+        ((Pawn)arr[10][4]).restart_Kill();
 
         arr[10][5] = new Pawn(attacker,"A14" );
         printPiece.add(arr[10][5]);
         arr[10][5].setPositions("(10,5)");
         howManySteps[10][5]=1;
+        ((Pawn)arr[10][5]).restart_Kill();
 
         arr[10][6] = new Pawn(attacker,"A16");
         printPiece.add(arr[10][6]);
         arr[10][6].setPositions("(10,6)");
         howManySteps[10][6]=1;
+        ((Pawn)arr[10][6]).restart_Kill();
 
         arr[10][7] = new Pawn(attacker,"A18" );
         printPiece.add(arr[10][7]);
         arr[10][7].setPositions("(10,7)");
         howManySteps[10][7]=1;
+        ((Pawn)arr[10][7]).restart_Kill();
 
         arr[9][5] = new Pawn(attacker,"A13" );
         printPiece.add(arr[9][5]);
         arr[9][5].setPositions("(9,5)");
         howManySteps[9][5]=1;
+        ((Pawn) arr[9][5]).restart_Kill();
 
         arr[3][0] = new Pawn(attacker,"A1" );
         printPiece.add(arr[3][0]);
         arr[3][0].setPositions("(3,0)");
         howManySteps[3][0]=1;
+        ((Pawn) arr[3][0]).restart_Kill();
 
         arr[4][0] = new Pawn(attacker,"A2" );
         printPiece.add(arr[4][0]);
         arr[4][0].setPositions("(4,0)");
         howManySteps[4][0]=1;
+        ((Pawn)arr[4][0]).restart_Kill();
 
         arr[5][0] = new Pawn(attacker,"A3" );
         printPiece.add(arr[5][0]);
         arr[5][0].setPositions("(5,0)");
         howManySteps[5][0]=1;
+        ((Pawn)arr[5][0]).restart_Kill();
 
         arr[6][0] = new Pawn(attacker,"A4" );
         printPiece.add(arr[6][0]);
         arr[6][0].setPositions("(6,0)");
         howManySteps[6][0]=1;
+        ((Pawn)arr[6][0]).restart_Kill();
 
         arr[7][0] = new Pawn(attacker,"A5" );
         printPiece.add(arr[7][0]);
         arr[7][0].setPositions("(7,0)");
         howManySteps[7][0]=1;
+        ((Pawn)arr[7][0]).restart_Kill();
 
         arr[5][1] = new Pawn(attacker,"A6" );
         printPiece.add(arr[5][1]);
         arr[5][1].setPositions("(5,1)");
         howManySteps[5][1]=1;
+        ((Pawn)arr[5][1]).restart_Kill();
 
         arr[3][10] = new Pawn(attacker,"A20" );
         printPiece.add(arr[3][10]);
         arr[3][10].setPositions("(3,10)");
         howManySteps[3][10]=1;
+        ((Pawn)arr[3][10]).restart_Kill();
 
         arr[4][10] = new Pawn(attacker,"A21" );
         printPiece.add(arr[4][10]);
         arr[4][10].setPositions("(4,10)");
         howManySteps[4][10]=1;
+        ((Pawn)arr[4][10]).restart_Kill();
 
         arr[5][10] = new Pawn(attacker,"A22" );
         printPiece.add(arr[5][10]);
         arr[5][10].setPositions("(5,10)");
         howManySteps[5][10]=1;
+        ((Pawn)arr[5][10]).restart_Kill();
 
         arr[6][10] = new Pawn(attacker,"A23" );
         printPiece.add(arr[6][10]);
         arr[6][10].setPositions("(6,10)");
         howManySteps[6][10]=1;
+        ((Pawn)arr[6][10]).restart_Kill();
 
         arr[7][10] = new Pawn(attacker,"A24" );
         printPiece.add(arr[7][10]);
         arr[7][10].setPositions("(7,10)");
         howManySteps[7][10]=1;
+        ((Pawn)arr[7][10]).restart_Kill();
 
         arr[5][9] = new Pawn(attacker,"A19" );
         printPiece.add(arr[5][9]);
         arr[5][9].setPositions("(5,9)");
         howManySteps[5][9]=1;
+        ((Pawn)arr[5][9]).restart_Kill();
 
 
         return arr;
@@ -666,10 +704,10 @@ public class GameLogic implements PlayableLogic {
             str=print.get(i).getId() + ": [";
             for (int j = 0; j < print.get(i).getSizePositions(); j++){
                 if (str.charAt(str.length()-1)=='['){
-                    str = str + print.get(i).positions.get(j);
+                    str = str + print.get(i).getPositions().get(j);
                 }
                 else {
-                    str = str + ", " + print.get(i).positions.get(j);
+                    str = str + ", " + print.get(i).getPositions().get(j);
                 }
             }
             str = str + "]";
@@ -703,10 +741,11 @@ public class GameLogic implements PlayableLogic {
                 }
             }
         }
-        Collections.sort(transfer, new MyComparator("stepPieces", winner));
+        transfer.sort(new MyComparator("stepPieces", winner));
         for (int i=0; i<transfer.size(); i++){
             System.out.println(transfer.get(i).toString() + transfer.get(i).getSteps() + " pieces");
         }
+        System.out.println("***************************************************************************");
     }
 
 }

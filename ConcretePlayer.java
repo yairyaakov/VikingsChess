@@ -2,15 +2,9 @@ public class ConcretePlayer implements Player {
     private Player player=null;
     private boolean m_isPlayerOne =true;
     private int m_winsCounter=0;
+
     public ConcretePlayer (boolean isPlayerOne){
         this.m_isPlayerOne= isPlayerOne;
-    }
-    /**
-     * @return true if the player is player 1, false otherwise.
-     */
-    @Override
-    public boolean isPlayerOne() {
-        return this.m_isPlayerOne;
     }
 
     /**
@@ -21,6 +15,14 @@ public class ConcretePlayer implements Player {
     @Override
     public int getWins() {
         return this.m_winsCounter;
+    }
+
+    /**
+     * @return true if the player is player 1, false otherwise.
+     */
+    @Override
+    public boolean isPlayerOne() {
+        return this.m_isPlayerOne;
     }
 
     public void addWin(){

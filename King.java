@@ -9,9 +9,7 @@ public class King extends ConcretePiece {
     public String getSymbol() {
         return m_kingUnicode;
     }
-    //public Player getOwner(){
 
-    //}
     public String getType(){
         return this.m_kingUnicode;
     }

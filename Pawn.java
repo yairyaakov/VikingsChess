@@ -1,6 +1,6 @@
 public class Pawn extends ConcretePiece {
     private final String m_pawnUnicode = "♙";
-    protected int killCounter=0;
+    private int killCounter=0;
 
     public Pawn(Player p, String id) {
         super.owner = p;
@@ -11,7 +11,9 @@ public class Pawn extends ConcretePiece {
     public int getKillCounter() {
         return killCounter;
     }
-
+    public void restart_Kill() {
+        this.killCounter=0;
+    }
     public void add_Kill() {
         this.killCounter++;
     }

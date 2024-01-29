@@ -17,10 +17,10 @@ public class MyComparator implements java.util.Comparator<Object> {
 
                 if (sortByKind.equals("locations")){
                     if (piece1.getOwner() == piece2.getOwner()){
-                        if (piece1.positions.size() == piece2.positions.size()){
+                        if (piece1.getPositions().size() == piece2.getPositions().size()){
                             return Integer.parseInt(piece1.id.substring(1)) - Integer.parseInt(piece2.id.substring(1));
                         }
-                        return piece1.positions.size() - piece2.positions.size();
+                        return piece1.getPositions().size() - piece2.getPositions().size();
                     }
                     if((piece1.getOwner().isPlayerOne() && winner.isPlayerOne()) || (!piece1.getOwner().isPlayerOne() && !winner.isPlayerOne())){
                         return -1;
