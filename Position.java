@@ -1,15 +1,33 @@
+import java.util.ArrayList;
+
 public class Position {
     private int x, y;
+    private int steps=0;
+
+
+
     public Position(int x, int y){
         this.x = x;
         this.y = y;
     }
-    // Getter
+
     public int getX() {
         return x;
     }
     public int getY() {
         return y;
+    }
+    public void set(Position p) {
+        this.x=p.getX();
+        this.y=p.getY();
+    }
+
+    public int getSteps() {
+        return steps;
+    }
+
+    public void updateSteps(int newSteps) {
+        this.steps=newSteps;
     }
 
     /**
@@ -33,5 +51,8 @@ public class Position {
         return false;
     }
 
-
+    @Override
+    public String toString() {
+        return "(" + this.x + ", " + this.y + ")";
+    }
 }

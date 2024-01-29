@@ -2,7 +2,8 @@ public class King extends ConcretePiece {
     private final String m_kingUnicode = "♔";
 
 
-    public King (Player p){
+    public King (Player p, String id){
+        super.id=id;
         super.owner=p;
     }
     public String getSymbol() {
@@ -20,4 +21,3 @@ public class King extends ConcretePiece {
 
 
 }
-//האם אני צריך לממש את כל הפונקציות של המחלקה האבסטרקטית
