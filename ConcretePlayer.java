@@ -28,4 +28,6 @@ public class ConcretePlayer implements Player {
     public void addWin(){
         m_winsCounter++;
     }
+
+    //Reset win counter
 }

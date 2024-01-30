@@ -513,38 +513,46 @@ public class GameLogic implements PlayableLogic {
         if (y != 0 && piecePosition[x][y - 1] != null && piecePosition[x][y - 1].getOwner().isPlayerOne() != isTheAttacker && !isKingPosition(x,y-1)) {
             if (y - 1 == 0) {
                 killPawn(x, 0);
+                ((Pawn)piecePosition[x][y]).add_Kill();
             } else if (piecePosition[x][y - 2] != null && piecePosition[x][y - 2].getOwner().isPlayerOne() == isTheAttacker) {
                 killPawn(x, y - 1);
+                ((Pawn)piecePosition[x][y]).add_Kill();
             }
-            ((Pawn)piecePosition[x][y]).add_Kill();
+
 
         }
 
         if (y != 10 && piecePosition[x][y + 1] != null && piecePosition[x][y + 1].getOwner().isPlayerOne() != isTheAttacker && !isKingPosition(x,y+1)) {
             if (y + 1 == 10) {
                 killPawn(x, y + 1);
+                ((Pawn)piecePosition[x][y]).add_Kill();
             } else if (piecePosition[x][y + 2] != null && piecePosition[x][y + 2].getOwner().isPlayerOne() == isTheAttacker) {
                 killPawn(x, y + 1);
+                ((Pawn)piecePosition[x][y]).add_Kill();
             }
-            ((Pawn)piecePosition[x][y]).add_Kill();
+
         }
 
         if (x != 10 && piecePosition[x + 1][y] != null && piecePosition[x + 1][y].getOwner().isPlayerOne() != isTheAttacker && !isKingPosition(x+1,y)) {
             if (x + 1 == 10) {
                 killPawn(x + 1, y);
+                ((Pawn)piecePosition[x][y]).add_Kill();
             } else if (piecePosition[x + 2][y] != null && piecePosition[x + 2][y].getOwner().isPlayerOne() == isTheAttacker) {
                 killPawn(x + 1, y);
+                ((Pawn)piecePosition[x][y]).add_Kill();
             }
-            ((Pawn)piecePosition[x][y]).add_Kill();
+
         }
 
         if (x != 0 && piecePosition[x - 1][y] != null && piecePosition[x - 1][y].getOwner().isPlayerOne() != isTheAttacker && !isKingPosition(x-1,y)) {
             if (x - 1 == 0) {
                 killPawn(x - 1, y);
+                ((Pawn)piecePosition[x][y]).add_Kill();
             } else if (piecePosition[x - 2][y] != null && piecePosition[x - 2][y].getOwner().isPlayerOne() == isTheAttacker) {
                 killPawn(x - 1, y);
+                ((Pawn)piecePosition[x][y]).add_Kill();
             }
-            ((Pawn)piecePosition[x][y]).add_Kill();
+
         }
     }
 
@@ -701,22 +709,23 @@ public class GameLogic implements PlayableLogic {
         String str;
         Collections.sort(print, new MyComparator("locations", winner));
         for (int i = 0; i<print.size(); i++){
-            str=print.get(i).getId() + ": [";
-            for (int j = 0; j < print.get(i).getSizePositions(); j++){
-                if (str.charAt(str.length()-1)=='['){
-                    str = str + print.get(i).getPositions().get(j);
+            if(print.get(i).getSizePositions()>1) {
+                str = print.get(i).getId() + ": [";
+                for (int j = 0; j < print.get(i).getSizePositions(); j++) {
+                    if (str.charAt(str.length() - 1) == '[') {
+                        str = str + print.get(i).getPositions().get(j);
+                    } else {
+                        str = str + ", " + print.get(i).getPositions().get(j);
+                    }
                 }
-                else {
-                    str = str + ", " + print.get(i).getPositions().get(j);
-                }
+                str = str + "]";
+                System.out.println(str);
             }
-            str = str + "]";
-            System.out.println(str);
         }
         System.out.println("***************************************************************************");
         Collections.sort(print, new MyComparator("killes", winner));
         for (int i = 0; i<print.size(); i++){
-            if (print.get(i) instanceof Pawn){
+            if (print.get(i) instanceof Pawn && ((Pawn) print.get(i)).getKillCounter()!=0){
                 str = print.get(i).getId() + ": " + ((Pawn) print.get(i)).getKillCounter() + " kills";
                 System.out.println(str);
             }
@@ -724,8 +733,10 @@ public class GameLogic implements PlayableLogic {
         System.out.println("***************************************************************************");
         Collections.sort(print, new MyComparator("squares", winner));
         for (int i = 0; i<print.size(); i++){
-            str = print.get(i).getId() + ": " + print.get(i).getSquares() + " squares";
-            System.out.println(str);
+            if(( print.get(i)).getSquares()!=0) {
+                str = print.get(i).getId() + ": " + print.get(i).getSquares() + " squares";
+                System.out.println(str);
+            }
         }
         System.out.println("***************************************************************************");
         for (int i=0; i<howManySteps.length; i++){
