@@ -1,4 +1,3 @@
-import javax.swing.text.Position;
 import java.util.ArrayList;
 public abstract class ConcretePiece implements Piece {
 
@@ -18,6 +17,7 @@ public abstract class ConcretePiece implements Piece {
      * @return The player who is the owner of this game piece.
      */
     @Override
+    //This is a function that return the owner of the piece
     public Player getOwner() {
         return owner;
     }
@@ -30,39 +30,44 @@ public abstract class ConcretePiece implements Piece {
      * (e.g., ♟ for pawn, ♞ for knight, ♜ for rook, etc.).
      */
     @Override
+    //This is a function that return the type of the piece
     public String getType() {
         return this.pieceType;
     }
+    // return all the positions the piece have been through
     public ArrayList<String> getPositions() {
         return positions;
     }
-    public int getSizePositions (){
-        return this.positions.size();
-    }
+    //return the distance the piece made in squares
     public int getSquares() {
         return squares;
     }
+    //return the id of the piece
     public String getId() {
         return id;
     }
+    //add this position to the positions he made
     public void setPositions (String s){
         positions.add(s);
     }
+    //update the squares count
     public void setSquares(int dis) {
         this.squares+=dis;
     }
-
+    //reset the squares counter
     public void restart_Squares(){
         this.squares = 0;
     }
+    //reset the positions
     public void restart_Positions(){
         this.positions = new ArrayList<String>();
     }
 
-
-    public void remuvelLoc (String s) {
+    //remove this position (in case of undo last move)
+    public void removelLoc(String s) {
         this.positions.remove(s);
     }
+    //reduce the arraylist by one
     public void removeLastLoc()
     {
         this.positions.remove(this.positions.size()-1);
