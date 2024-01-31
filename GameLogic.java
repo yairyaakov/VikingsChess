@@ -32,6 +32,7 @@ public class GameLogic implements PlayableLogic {
      * @return true if the move is valid and successful, false otherwise.
      */
     @Override
+    //This is a function that check if the move that the player want to do is legal, and if it might kill a piece by moving
     public boolean move(Position a, Position b) {
         if ((a.getX() != b.getX()) && (a.getY() != b.getY())) {
             return false;
@@ -81,6 +82,7 @@ public class GameLogic implements PlayableLogic {
      * @return The piece at the specified position, or null if no piece is present.
      */
     @Override
+    //return the kind of piece that in this position
     public Piece getPieceAtPosition(Position position) {
         return piecePosition[position.getX()][position.getY()];
     }
@@ -111,17 +113,29 @@ public class GameLogic implements PlayableLogic {
      * @return true if the game has finished, false otherwise.
      */
     @Override
+    //This is a function that check if the game is finished, by the king being killed or the king get one of the corners
     public boolean isGameFinished() {
+        //This is a check if the king get one of the corners
         if ((kingPosition.getX()==0 && kingPosition.getY()==0) || (kingPosition.getX()==10 && kingPosition.getY()==0) ||
                 (kingPosition.getX()==0 && kingPosition.getY()==10) ||(kingPosition.getX()==10 && kingPosition.getY()==10)) {
+            //add win to defender win counter if its true
             defender.addWin();
+            //return the king to original position for next game
           kingPosition.set(FIRST_KING_POSITION);
+          //print stats of the game
             printStatistics (printPiece, defender);
+            //return true if the game is finished
             return true;
         }
+        //Check if the king is killed
         if(isKingKilled()){
+            //if the king is killed, add win to the attacker counter
             attacker.addWin();
+            //return the king to original position for next game
+            kingPosition.set(FIRST_KING_POSITION);
+            //print stats of the game
             printStatistics (printPiece, attacker);
+            //return true if the game is finished
             return true;
         }
         return false;
@@ -133,6 +147,7 @@ public class GameLogic implements PlayableLogic {
      * @return true if it's the second player's turn, false if it's the first player's turn.
      */
     @Override
+    //return true if now its second player turn
     public boolean isSecondPlayerTurn() {
         return !m_isFirstPlayerTurn;
     }
@@ -141,6 +156,7 @@ public class GameLogic implements PlayableLogic {
      * Reset the game to its initial state, clearing the board and player information.
      */
     @Override
+    //This is a function that reset the game
     public void reset() {
         m_isFirstPlayerTurn = false;
         initGame(piecePosition);      //רעיון לטסט: מחשבים כמה פעמים היה ריסט ומשוויםם לחישוב סכום מספר ניצחונות שני הפלייר
